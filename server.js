@@ -4,18 +4,46 @@ var path = require('path');
 
 var app = express();
 app.use(morgan('combined'));
-var articleOne={
-    title:'Article one by Sumit Kr Bishnu',
-    heading:'Article One',
-    date:'October 29,2016',
-    content: ` <p>
-                 This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content   
-              <p>
-                This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.
-             </p>
-             <p>
-                This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.
-            </p>`
+var articles={
+    'article-ne':{
+        title:'Article one by Sumit Kr Bishnu',
+        heading:'Article One',
+        date:'October 29,2016',
+        content: ` <p>
+                     This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content   
+                  <p>
+                    This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.
+                 </p>
+                 <p>
+                    This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.
+                </p>`
+    },
+    'article-two':{
+        title:'Article Two by Sumit Kr Bishnu',
+        heading:'Article Two',
+        date:'October 30,2016',
+        content: ` <p>
+                     This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content   
+                  <p>
+                    This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.
+                 </p>
+                 <p>
+                    This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.
+                </p>`
+    },
+    'article-three':{
+        title:'Article Three by Sumit Kr Bishnu',
+        heading:'Article Three',
+        date:'November 1,2016',
+        content: ` <p>
+                     This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content   
+                  <p>
+                    This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.
+                 </p>
+                 <p>
+                    This is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.his is content of my first article.
+                </p>`
+    }
 };
 function createTemplate(data){
    var title=data.title;
@@ -57,15 +85,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function (req, res){
-    res.send(createTemplate(articleOne));
+app.get('/:articleName',function (req, res){
+    var articleName=req.params.articleName;
+    res.send(createTemplate(articles[articleName]));
 });
-app.get('/article-two',function (req, res){
-    res.send("Article two requested and will be served here.");
-});
-app.get('/article-three',function (req, res){
-    res.send("Article three requested and will be served here.");
-});
+
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
